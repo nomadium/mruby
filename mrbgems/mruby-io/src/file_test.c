@@ -21,6 +21,10 @@
   #include <sys/file.h>
   #include <sys/param.h>
   #include <sys/wait.h>
+  #if __STDC_HOSTED__ == 0
+  int lstat(const char *restrict, struct stat *restrict);
+  #else
+  #endif
 #ifndef __DJGPP__
   #include <libgen.h>
 #endif
@@ -33,6 +37,14 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if __STDC_HOSTED__ == 0
+int lstat(const char *restrict pathname, struct stat *restrict statbuf)
+{
+  return -1;
+}
+#else
+#endif
 
 extern struct mrb_data_type mrb_io_type;
 
