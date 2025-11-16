@@ -1,0 +1,4 @@
+riscv64-unknown-elf-nm -u build/minimal/lib/libmruby.a \
+  | awk '{print $2}' \
+  | grep -v '^mrb_' \
+  | sort | uniq
